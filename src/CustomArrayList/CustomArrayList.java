@@ -10,7 +10,7 @@ import java.util.*;
  + remove(Object o)
  + clear()
  + isEmpty()
- - sort(Comparator<? super E> c)
+ + sort(Comparator<? super E> c)
  */
 
 public class CustomArrayList<T extends Comparable> {
@@ -19,7 +19,6 @@ public class CustomArrayList<T extends Comparable> {
     private int pointer = 0;
 
     public static void main(String[] args) {
-
         CustomArrayList customList = new CustomArrayList();
         customList.fillListWithRandomStrategy(7);
 
@@ -86,6 +85,19 @@ public class CustomArrayList<T extends Comparable> {
         return pointer;
     }
 
+    private void printAll(){
+        for (int i = 0; i < this.size(); i++) {
+            System.out.println(this.array[i]);
+        }
+    }
+
+    //заполнение через Random
+    private void fillListWithRandomStrategy(int arrayLength) {
+        for (int i = 0; i < arrayLength; i++) {
+            this.add((T) ((Integer) new Random().nextInt(20)));
+        }
+    }
+
     //Вспомогательный метод для масштабирования.
     private void resize(int newLength) {
         Object[] newArray = new Object[newLength];
@@ -93,7 +105,7 @@ public class CustomArrayList<T extends Comparable> {
         array = newArray;
     }
 
-    // Основной метод быстрой сортировки
+    // Сортировка
     public void quickSort() {
         if (this == null || this.size() < 2) {
             return; // Check for null or empty list
@@ -101,7 +113,6 @@ public class CustomArrayList<T extends Comparable> {
         quickSort(0, this.size() - 1);
     }
 
-    // Рекурсивная быстрая сортировка
     public void quickSort(int low, int high) {
         if (low < high) {
             int pivotIndex = partition(low, high);
@@ -132,20 +143,4 @@ public class CustomArrayList<T extends Comparable> {
         this.array[i] = this.get(j);
         this.array[j] = temp;
     }
-
-    public int compareTo(Object o) {
-        return 0;
-    }
-
-    private void fillListWithRandomStrategy(int arrayLength) {
-        for (int i = 0; i < arrayLength; i++) {
-            this.add((T) ((Integer) new Random().nextInt(20)));
-        }
-    }
-
-    private void printAll(){
-        for (int i = 0; i < this.size(); i++) {
-            System.out.println(this.array[i]);
-        }
-    };
 }
